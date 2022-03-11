@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace ShoppingList.Domain.AggregatesModel
 {
-    public class ShoppingList : Entity
+    public class ShoppingList : Entity, IAggregateRoot
     {
         private readonly List<ShoppingListItem> _shoppingListItems;
         public IReadOnlyCollection<ShoppingListItem> ShoppingListItems => _shoppingListItems;
