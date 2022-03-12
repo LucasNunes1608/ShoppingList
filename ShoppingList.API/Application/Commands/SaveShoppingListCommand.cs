@@ -7,18 +7,12 @@ namespace ShoppingList.API.Application.Commands
     public class SaveShoppingListCommand : IRequest<bool>
     {
         public string Title { get; private set; }
-        private readonly List<ShoppingListItemDTO> _shoppingListItems;
-        public IEnumerable<ShoppingListItemDTO> ShoppingListItems => _shoppingListItems;
+        public IEnumerable<ShoppingListItemDTO> ShoppingListItems { get; private set; }
 
-        public SaveShoppingListCommand()
-        {
-            _shoppingListItems = new List<ShoppingListItemDTO>();
-        }
-
-        public SaveShoppingListCommand(string title, List<ShoppingListItemDTO> shoppingListItems) : this()
+        public SaveShoppingListCommand(string title, IEnumerable<ShoppingListItemDTO> shoppingListItems) 
         {
             Title = title;
-            _shoppingListItems = shoppingListItems;//shoppingListItems.ToShoppingListItemsDTO().ToList();
+            ShoppingListItems = shoppingListItems;
         }
 
        
@@ -26,9 +20,7 @@ namespace ShoppingList.API.Application.Commands
 
     public record ShoppingListItemDTO
     {
-        public int Id { get; init; }
         public string Description { get; init; }
         public int Quantity { get; init; }
-        public bool IsCompleted { get; init; }
     }
 }

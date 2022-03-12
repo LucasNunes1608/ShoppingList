@@ -16,7 +16,6 @@ namespace ShoppingList.API.Extensions
             return new ShoppingListItemDTO()
             {
                 Description = item.Description,
-                IsCompleted = item.IsCompleted,
                 Quantity = item.Quantity
             };
         }
