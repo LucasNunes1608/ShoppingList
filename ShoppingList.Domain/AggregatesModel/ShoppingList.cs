@@ -12,9 +12,12 @@ namespace ShoppingList.Domain.AggregatesModel
         private readonly List<ShoppingListItem> _shoppingListItems;
         public IReadOnlyCollection<ShoppingListItem> ShoppingListItems => _shoppingListItems;
 
-        public ShoppingList()
+        public string Title { get; private set; }
+
+        public ShoppingList(string title)
         {
             _shoppingListItems = new List<ShoppingListItem>();
+            Title = title;
         }
 
         public void AddItem(string Description, int Quantity)
@@ -33,7 +36,7 @@ namespace ShoppingList.Domain.AggregatesModel
         {
             var existingItem = _shoppingListItems.FirstOrDefault(x => x.Description == Description);
             if (existingItem == null)
-                throw new Exception("Unable to remove Item. Item not found on Shopping List");
+                throw new ArgumentException("Unable to remove Item. Item not found on Shopping List");
 
             existingItem.RemoveUnits(Quantity);
         }
