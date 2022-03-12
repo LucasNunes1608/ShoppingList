@@ -1,4 +1,6 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using MediatR;
+using Microsoft.AspNetCore.Mvc;
+using ShoppingList.API.Application.Commands;
 using ShoppingList.API.Application.Queries;
 using System.Net;
 
@@ -11,9 +13,12 @@ namespace ShoppingList.API.Controllers
     public class ShoppingListsController : ControllerBase
     {
         private readonly IShoppingListQueries _shoppingListQueries;
-        public ShoppingListsController(IShoppingListQueries shoppingListQueries)
+        private readonly IMediator _mediator;
+        public ShoppingListsController(IShoppingListQueries shoppingListQueries,
+                                        IMediator mediator)
         {
             _shoppingListQueries = shoppingListQueries ?? throw new ArgumentNullException(nameof(shoppingListQueries));
+            _mediator = mediator ?? throw new ArgumentNullException(nameof(mediator));
         }
 
         [Route("{ShoppingListId:int}")]
@@ -31,6 +36,20 @@ namespace ShoppingList.API.Controllers
             {
                 return NotFound();
             }
+        }
+
+        [Route("saveList")]
+        [HttpPost]
+        [ProducesResponseType((int)HttpStatusCode.OK)]
+        [ProducesResponseType((int)HttpStatusCode.BadRequest)]
+        public async Task<IActionResult>SaveShoppingList([FromBody] SaveShoppingListCommand command)
+        {
+            bool commandResult = false;
+            commandResult = await _mediator.Send(command);
+            if (!commandResult)
+                return BadRequest();
+
+            return Ok();
         }
     }
 }

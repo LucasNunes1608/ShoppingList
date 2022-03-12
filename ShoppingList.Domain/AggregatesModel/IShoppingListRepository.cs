@@ -14,6 +14,6 @@ namespace ShoppingList.Domain.AggregatesModel
         void Update(ShoppingList shoppingList);
 
         Task<ShoppingList> GetAsync(int shoppingListId);
-        void Remove(int shoppingListId);
+        void Remove(ShoppingList shoppingList);
     }
 }

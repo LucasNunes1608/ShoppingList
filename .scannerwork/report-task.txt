@@ -1,0 +1,6 @@
+projectKey=ShoppingList
+serverUrl=http://localhost:9000
+serverVersion=9.3.0.51899
+dashboardUrl=http://localhost:9000/dashboard?id=ShoppingList
+ceTaskId=AX98ojd3IhILGt_UOYYG
+ceTaskUrl=http://localhost:9000/api/ce/task?id=AX98ojd3IhILGt_UOYYG
