@@ -13,12 +13,12 @@ namespace ShoppingList.API.Application.Queries
         }
         public async Task<ShoppingList> GetShoppingListAsync(int id)
         {
-            using(var connection = new SqlConnection(_connectionString))
+            using (var connection = new SqlConnection(_connectionString))
             {
                 connection.Open();
 
                 var result = await connection.QueryAsync<dynamic>(
-                    @"select sl.Title as title, sli.Description as description, sli.IsCompleted as iscompleted, sli.Quantity as quantity
+                    @"select sl.Id as Id, sl.Title as title, sli.Id as itemid, sli.Description as description, sli.IsCompleted as iscompleted, sli.Quantity as quantity
                         FROM ShoppingLists sl
                         LEFT JOIN ShoppingListItem sli ON sl.Id = sli.ShoppingListId
                         WHERE sl.Id=@id",
@@ -35,6 +35,7 @@ namespace ShoppingList.API.Application.Queries
         {
             var shoppingList = new ShoppingList()
             {
+                Id = result[0].Id,
                 title = result[0].title,
                 items = new List<ShoppingListItem>()
             };
@@ -43,6 +44,7 @@ namespace ShoppingList.API.Application.Queries
             {
                 var listItem = new ShoppingListItem()
                 {
+                    id = item.itemid,
                     description = item.description,
                     iscompleted = item.iscompleted,
                     quantity = item.quantity

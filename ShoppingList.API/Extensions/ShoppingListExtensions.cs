@@ -1,23 +1,20 @@
 ﻿using ShoppingList.API.Application.Commands;
-using ShoppingList.API.Models;
+using ShoppingList.Domain.AggregatesModel;
 namespace ShoppingList.API.Extensions
 {
     public static class ShoppingListExtensions
     {
-        public static IEnumerable<ShoppingListItemDTO> ToShoppingListItemsDTO(this IEnumerable<ShoppingListItem> Items)
+        public static IEnumerable<ShoppingListItem> ToShoppingListItems(this IEnumerable<UpdateShoppingListCommand.UpdateShoppingListItemDTO> Items)
         {
             foreach (var item in Items)
             {
-                yield return item.ToShoppingListItemDTO();
+                yield return item.ToShoppingListItem();
             }
         }
-        public static ShoppingListItemDTO ToShoppingListItemDTO(this ShoppingListItem item)
+        public static ShoppingListItem ToShoppingListItem(this UpdateShoppingListCommand.UpdateShoppingListItemDTO item)
         {
-            return new ShoppingListItemDTO()
-            {
-                Description = item.Description,
-                Quantity = item.Quantity
-            };
+            var shoppingListItem = new ShoppingListItem(item.Description, item.Quantity, item.IsCompleted);
+            return shoppingListItem;
         }
     }
 }

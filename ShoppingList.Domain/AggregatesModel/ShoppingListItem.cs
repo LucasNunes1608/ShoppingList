@@ -13,14 +13,14 @@ namespace ShoppingList.Domain.AggregatesModel
         public int Quantity { get; private set; }
         public bool IsCompleted { get; private set; }
 
-        public ShoppingListItem(string Description, int Quantity)
+        public ShoppingListItem(string Description, int Quantity, bool isCompleted = false)
         {
             if (Quantity < 0)
                 throw new ArgumentOutOfRangeException("Quantity", "Quantity cannot be less than 0");
 
             this.Description = Description;
             this.Quantity = Quantity;
-            IsCompleted = false;
+            IsCompleted = isCompleted;
         }
 
         public void SetDescription(string Description)
@@ -31,20 +31,17 @@ namespace ShoppingList.Domain.AggregatesModel
             this.Description = Description.Trim();
         }
 
-        public void AddUnits(int Quantity)
+        public void SetUnits(int Quantity)
         {
             if (Quantity < 0)
                 throw new ArgumentOutOfRangeException("Quantity", "Quantity cannot be less than 0");
 
-            this.Quantity += Quantity;
+            this.Quantity = Quantity;
         }
 
-        public void RemoveUnits(int Quantity)
+        public void SetCompletion(bool isCompleted)
         {
-            if(this.Quantity - Quantity <= 0)
-                    throw new ArgumentOutOfRangeException("Quantity", "Cannot remove more units than the current unit quantity");
-
-            this.Quantity -= Quantity;
+            IsCompleted = isCompleted;
         }
 
     }

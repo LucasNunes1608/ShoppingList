@@ -51,5 +51,33 @@ namespace ShoppingList.API.Controllers
 
             return Ok();
         }
+
+        [Route("removeList")]
+        [HttpPost]
+        [ProducesResponseType ((int)HttpStatusCode.OK)]
+        [ProducesResponseType((int)HttpStatusCode.BadRequest)]
+        public async Task<IActionResult>RemoveShoppingList([FromBody] RemoveShoppingListCommand command)
+        {
+            bool commandResult = false;
+            commandResult = await _mediator.Send(command);
+            if (!commandResult)
+                return BadRequest();
+
+            return Ok();
+        }
+
+        [Route("updateList")]
+        [HttpPost]
+        [ProducesResponseType((int)HttpStatusCode.OK)]
+        [ProducesResponseType((int)HttpStatusCode.BadRequest)]
+        public async Task<IActionResult> UpdateShoppingList([FromBody] UpdateShoppingListCommand command)
+        {
+            bool commandResult = false;
+            commandResult = await _mediator.Send(command);
+            if (!commandResult)
+                return BadRequest();
+
+            return Ok();
+        }
     }
 }

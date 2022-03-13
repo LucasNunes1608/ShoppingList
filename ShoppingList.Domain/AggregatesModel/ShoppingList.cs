@@ -20,25 +20,58 @@ namespace ShoppingList.Domain.AggregatesModel
             Title = title;
         }
 
-        public void AddItem(string Description, int Quantity)
+        public void AddItem(string Description, int Quantity, bool isCompleted)
         {
             var existingItem = _shoppingListItems.FirstOrDefault(x => x.Description == Description);
             if (existingItem != null)
-                existingItem.AddUnits(Quantity);
+                throw new ArgumentException("Unable to add Item. Item already exists.");
             else
             {
-                var newItem = new ShoppingListItem(Description, Quantity);
+                var newItem = new ShoppingListItem(Description, Quantity, isCompleted);
                 _shoppingListItems.Add(newItem);
             }
         }
 
-        public void RemoveItem(string Description, int Quantity)
+        public void UpdateItem(string Description, int Quantity, bool isCompleted)
         {
             var existingItem = _shoppingListItems.FirstOrDefault(x => x.Description == Description);
             if (existingItem == null)
-                throw new ArgumentException("Unable to remove Item. Item not found on Shopping List");
+                throw new ArgumentException("Unable to update Item. Item not found on Shopping List");
 
-            existingItem.RemoveUnits(Quantity);
+            existingItem.SetUnits(Quantity);
+            existingItem.SetDescription(Description);
+            existingItem.SetCompletion(isCompleted);
+        }
+
+        public void SetTitle(string title)
+        {
+            Title = title;
+        }
+
+        public void SetShoppingList(IEnumerable<ShoppingListItem> shoppingListItems)
+        {
+            foreach (var item in shoppingListItems)
+            {
+                if (_shoppingListItems.Any(i => i.Description == item.Description))
+                {
+                    UpdateItem(item.Description, item.Quantity, item.IsCompleted);
+                }
+                else
+                {
+                    AddItem(item.Description, item.Quantity, item.IsCompleted);
+                }
+            }
+
+            //Need to remove non-existant children properly, now it just removes the FK references to the parent
+            var query = from i in _shoppingListItems
+                        where !(from ni in shoppingListItems
+                                select ni.Description)
+                                .Contains(i.Description)
+                        select i;
+            foreach (var item in query.ToList())
+            {
+                _shoppingListItems.Remove(item);
+            }
         }
     }
 }

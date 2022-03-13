@@ -20,7 +20,7 @@ namespace ShoppingList.API.Application.Commands
 
             foreach (var item in request.ShoppingListItems)
             {
-                shoppingList.AddItem(item.Description, item.Quantity);
+                shoppingList.AddItem(item.Description, item.Quantity, item.isCompleted);
             }
 
             _shoppingListRepository.Add(shoppingList);

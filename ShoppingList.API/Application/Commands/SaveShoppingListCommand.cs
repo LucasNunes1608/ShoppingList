@@ -15,12 +15,13 @@ namespace ShoppingList.API.Application.Commands
             ShoppingListItems = shoppingListItems;
         }
 
-       
+        public record ShoppingListItemDTO
+        {
+            public string Description { get; init; }
+            public int Quantity { get; init; }
+            public bool isCompleted { get; init; }
+        }
     }
 
-    public record ShoppingListItemDTO
-    {
-        public string Description { get; init; }
-        public int Quantity { get; init; }
-    }
+    
 }
