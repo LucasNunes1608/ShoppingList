@@ -29,6 +29,8 @@ services:
         ports:
           - 9200:9200
 
+    messaginserivce:
+
 volumes:
   pgdata:
       

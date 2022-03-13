@@ -15,6 +15,6 @@ namespace TelegramMessaging.Domain.AggregatesModel
         {
             this.messageText = messageText;
             this.timeStamp = timeStamp;
-        }        
+        }
     }
 }
