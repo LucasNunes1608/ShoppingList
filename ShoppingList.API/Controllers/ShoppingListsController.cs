@@ -38,6 +38,23 @@ namespace ShoppingList.API.Controllers
             }
         }
 
+        [Route("getAll")]
+        [HttpGet]
+        [ProducesResponseType(typeof(IEnumerable<Domain.AggregatesModel.ShoppingList>), (int)HttpStatusCode.OK)]
+        [ProducesResponseType((int)HttpStatusCode.NotFound)]
+        public async Task<IActionResult> GetShoppingAllListsAsync()
+        {
+            try
+            {
+                var shoppingList = await _shoppingListQueries.GetAllShoppingListsAsync();
+                return Ok(shoppingList);
+            }
+            catch (Exception ex)
+            {
+                return NotFound();
+            }
+        }
+
         [Route("saveList")]
         [HttpPost]
         [ProducesResponseType((int)HttpStatusCode.OK)]

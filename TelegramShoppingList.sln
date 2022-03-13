@@ -13,9 +13,18 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "ShoppingList", "ShoppingLis
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ShoppingList.Domain", "ShoppingList.Domain\ShoppingList.Domain.csproj", "{E26AECCC-CFEC-46AE-BE56-53AEE17E80FA}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ShoppingList.Infrastructure", "ShoppingList.Infrastructure\ShoppingList.Infrastructure.csproj", "{18BF8B92-5C38-4AED-BA3A-B1CAABD4245B}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ShoppingList.Infrastructure", "ShoppingList.Infrastructure\ShoppingList.Infrastructure.csproj", "{18BF8B92-5C38-4AED-BA3A-B1CAABD4245B}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ShoppingList.API", "ShoppingList.API\ShoppingList.API.csproj", "{4CDE6B4A-D148-42CF-8141-FF2BF87BE2F3}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ShoppingList.API", "ShoppingList.API\ShoppingList.API.csproj", "{4CDE6B4A-D148-42CF-8141-FF2BF87BE2F3}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TelegramMessaging.Domain", "TelegramMessaging.Domain\TelegramMessaging.Domain.csproj", "{AF01DFF2-20ED-4887-B52D-612284BEEAD3}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TelegramMessaging.Infrastructure", "TelegramMessaging.Infrastructure\TelegramMessaging.Infrastructure.csproj", "{A9EB9C95-F789-46B5-A8E6-A92256762825}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{745A00D4-337F-4013-BF33-E485E04F6077}"
+	ProjectSection(SolutionItems) = preProject
+		docker-compose.yml = docker-compose.yml
+	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -39,6 +48,14 @@ Global
 		{4CDE6B4A-D148-42CF-8141-FF2BF87BE2F3}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{4CDE6B4A-D148-42CF-8141-FF2BF87BE2F3}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{4CDE6B4A-D148-42CF-8141-FF2BF87BE2F3}.Release|Any CPU.Build.0 = Release|Any CPU
+		{AF01DFF2-20ED-4887-B52D-612284BEEAD3}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{AF01DFF2-20ED-4887-B52D-612284BEEAD3}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{AF01DFF2-20ED-4887-B52D-612284BEEAD3}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{AF01DFF2-20ED-4887-B52D-612284BEEAD3}.Release|Any CPU.Build.0 = Release|Any CPU
+		{A9EB9C95-F789-46B5-A8E6-A92256762825}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A9EB9C95-F789-46B5-A8E6-A92256762825}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A9EB9C95-F789-46B5-A8E6-A92256762825}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A9EB9C95-F789-46B5-A8E6-A92256762825}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -50,6 +67,8 @@ Global
 		{E26AECCC-CFEC-46AE-BE56-53AEE17E80FA} = {B891414C-C9B3-4400-B9B6-02C0DF4C62D6}
 		{18BF8B92-5C38-4AED-BA3A-B1CAABD4245B} = {B891414C-C9B3-4400-B9B6-02C0DF4C62D6}
 		{4CDE6B4A-D148-42CF-8141-FF2BF87BE2F3} = {B891414C-C9B3-4400-B9B6-02C0DF4C62D6}
+		{AF01DFF2-20ED-4887-B52D-612284BEEAD3} = {BAAA16DF-9528-4B05-89DF-3143BDE010BA}
+		{A9EB9C95-F789-46B5-A8E6-A92256762825} = {BAAA16DF-9528-4B05-89DF-3143BDE010BA}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {C8454611-BCAB-4D14-88C1-1CB067A3BD80}
