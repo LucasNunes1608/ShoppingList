@@ -62,7 +62,6 @@ namespace ShoppingList.Domain.AggregatesModel
                 }
             }
 
-            //Need to remove non-existant children properly, now it just removes the FK references to the parent
             var query = from i in _shoppingListItems
                         where !(from ni in shoppingListItems
                                 select ni.Description)

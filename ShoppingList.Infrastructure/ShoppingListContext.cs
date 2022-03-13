@@ -1,5 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using ShoppingList.Domain.SeedWork;
+using ShoppingList.Infrastructure.EntityConfigurations;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -18,6 +19,12 @@ namespace ShoppingList.Infrastructure
         {
             var result = await base.SaveChangesAsync(cancellationToken);
             return true;
+        }
+
+        protected override void OnModelCreating(ModelBuilder modelBuilder)
+        {
+            modelBuilder.ApplyConfiguration(new ShoppingListEntityTypeConfiguration());
+            modelBuilder.ApplyConfiguration(new ShoppingListItemEntityTypeConfiguration());
         }
     }
 }
