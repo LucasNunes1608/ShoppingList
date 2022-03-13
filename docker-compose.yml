@@ -10,6 +10,17 @@ services:
           - "5432:5432"
         volumes:
           - C:/Users/lucas/source/repos/Volumes:/var/lib/postgresql/data
+
+    sqlserver:
+        image: mcr.microsoft.com/mssql/server:2017-latest
+        environment:
+          - SA_PASSWORD=Pass@word
+          - ACCEPT_EULA=Y
+        ports:
+          - "5434:1433"
+        volumes:
+          - C:/Users/lucas/source/repos/VolumesSQLServer:/var/opt/mssql/data
+
 volumes:
   pgdata:
       
