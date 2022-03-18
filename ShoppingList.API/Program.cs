@@ -1,6 +1,9 @@
+using EventBus.Abstractions;
+using EventBus.EventBusKafka;
 using MediatR;
 using Microsoft.EntityFrameworkCore;
 using ShoppingList.API.Application.Queries;
+using ShoppingList.API.Producers;
 using ShoppingList.Domain.AggregatesModel;
 using ShoppingList.Infrastructure;
 using ShoppingList.Infrastructure.Repositories;
@@ -24,6 +27,11 @@ builder.Services.AddTransient<IShoppingListQueries, ShoppingListQueries>(s =>
 });
 builder.Services.AddScoped<IShoppingListRepository, ShoppingListRepository>();
 builder.Services.AddMediatR(Assembly.GetExecutingAssembly());
+builder.Services.AddSingleton<IEventBus, EventBusKafka>(sp =>
+{
+    return new EventBusKafka();
+});
+
 
 var app = builder.Build();
 using (var scope = app.Services.CreateScope())

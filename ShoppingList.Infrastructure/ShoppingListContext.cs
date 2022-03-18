@@ -1,4 +1,5 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using MediatR;
+using Microsoft.EntityFrameworkCore;
 using ShoppingList.Domain.SeedWork;
 using ShoppingList.Infrastructure.EntityConfigurations;
 using System;
@@ -12,11 +13,16 @@ namespace ShoppingList.Infrastructure
     public class ShoppingListContext : DbContext, IUnitOfWork
     {
         public DbSet<Domain.AggregatesModel.ShoppingList> ShoppingLists { get; set; }
+        private readonly IMediator _mediator;
 
-        public ShoppingListContext(DbContextOptions<ShoppingListContext> options) : base(options) { }
+        public ShoppingListContext(DbContextOptions<ShoppingListContext> options, IMediator mediator) : base(options)
+        {
+            _mediator = mediator ?? throw new ArgumentNullException(nameof(mediator));
+        }
 
         public async Task<bool> SaveEntitiesAsync(CancellationToken cancellationToken = default)
         {
+            await _mediator.DispatchDomainsEventAsync(this);
             var result = await base.SaveChangesAsync(cancellationToken);
             return true;
         }

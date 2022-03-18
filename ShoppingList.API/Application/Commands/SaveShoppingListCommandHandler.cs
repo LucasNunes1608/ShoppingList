@@ -14,7 +14,7 @@ namespace ShoppingList.API.Application.Commands
             _mediator = mediator ?? throw new ArgumentNullException(nameof(mediator));
         }
 
-        public Task<bool> Handle(SaveShoppingListCommand request, CancellationToken cancellationToken)
+        public async Task<bool> Handle(SaveShoppingListCommand request, CancellationToken cancellationToken)
         {
             var shoppingList = new Domain.AggregatesModel.ShoppingList(request.Title);
 
@@ -25,7 +25,7 @@ namespace ShoppingList.API.Application.Commands
 
             _shoppingListRepository.Add(shoppingList);
 
-            return _shoppingListRepository.UnitOfWork.SaveEntitiesAsync(cancellationToken);
+            return await _shoppingListRepository.UnitOfWork.SaveEntitiesAsync(cancellationToken);
         }
     }
 }

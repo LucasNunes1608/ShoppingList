@@ -1,6 +1,8 @@
-﻿using MediatR;
+﻿using EventBus.Abstractions;
+using MediatR;
 using Microsoft.AspNetCore.Mvc;
 using ShoppingList.API.Application.Commands;
+using ShoppingList.API.Application.IntegrationEvents.Events;
 using ShoppingList.API.Application.Queries;
 using System.Net;
 
@@ -14,11 +16,14 @@ namespace ShoppingList.API.Controllers
     {
         private readonly IShoppingListQueries _shoppingListQueries;
         private readonly IMediator _mediator;
+        private readonly IEventBus _eventBus;
         public ShoppingListsController(IShoppingListQueries shoppingListQueries,
-                                        IMediator mediator)
+                                        IMediator mediator,
+                                        IEventBus eventBus)
         {
             _shoppingListQueries = shoppingListQueries ?? throw new ArgumentNullException(nameof(shoppingListQueries));
             _mediator = mediator ?? throw new ArgumentNullException(nameof(mediator));
+            _eventBus = eventBus ?? throw new ArgumentNullException(nameof(eventBus));
         }
 
         [Route("{ShoppingListId:int}")]
@@ -32,7 +37,7 @@ namespace ShoppingList.API.Controllers
                 var shoppingList = await _shoppingListQueries.GetShoppingListAsync(ShoppingListId);
                 return Ok(shoppingList);
             }
-            catch(Exception ex)
+            catch (Exception)
             {
                 return NotFound();
             }
@@ -49,7 +54,7 @@ namespace ShoppingList.API.Controllers
                 var shoppingList = await _shoppingListQueries.GetAllShoppingListsAsync();
                 return Ok(shoppingList);
             }
-            catch (Exception ex)
+            catch (Exception)
             {
                 return NotFound();
             }
@@ -59,21 +64,21 @@ namespace ShoppingList.API.Controllers
         [HttpPost]
         [ProducesResponseType((int)HttpStatusCode.OK)]
         [ProducesResponseType((int)HttpStatusCode.BadRequest)]
-        public async Task<IActionResult>SaveShoppingList([FromBody] SaveShoppingListCommand command)
+        public async Task<IActionResult> SaveShoppingList([FromBody] SaveShoppingListCommand command)
         {
             bool commandResult = false;
             commandResult = await _mediator.Send(command);
             if (!commandResult)
-                return BadRequest();
+                return BadRequest();            
 
             return Ok();
         }
 
         [Route("removeList")]
         [HttpPost]
-        [ProducesResponseType ((int)HttpStatusCode.OK)]
+        [ProducesResponseType((int)HttpStatusCode.OK)]
         [ProducesResponseType((int)HttpStatusCode.BadRequest)]
-        public async Task<IActionResult>RemoveShoppingList([FromBody] RemoveShoppingListCommand command)
+        public async Task<IActionResult> RemoveShoppingList([FromBody] RemoveShoppingListCommand command)
         {
             bool commandResult = false;
             commandResult = await _mediator.Send(command);

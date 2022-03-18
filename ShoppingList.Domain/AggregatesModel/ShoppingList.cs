@@ -1,4 +1,5 @@
-﻿using ShoppingList.Domain.SeedWork;
+﻿using ShoppingList.Domain.Events;
+using ShoppingList.Domain.SeedWork;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -18,6 +19,8 @@ namespace ShoppingList.Domain.AggregatesModel
         {
             _shoppingListItems = new List<ShoppingListItem>();
             Title = title;
+
+            AddShoppingListCreatedEvent();
         }
 
         public void AddItem(string Description, int Quantity, bool isCompleted)
@@ -71,6 +74,12 @@ namespace ShoppingList.Domain.AggregatesModel
             {
                 _shoppingListItems.Remove(item);
             }
+        }
+
+        private void AddShoppingListCreatedEvent()
+        {
+            var shoppingListCreatedEvent = new ShoppingListCreatedDomainEvent(this);
+            AddDomainEvent(shoppingListCreatedEvent);
         }
     }
 }

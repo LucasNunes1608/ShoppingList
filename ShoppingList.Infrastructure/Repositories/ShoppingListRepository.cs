@@ -49,10 +49,6 @@ namespace ShoppingList.Infrastructure.Repositories
 
         public void Remove(Domain.AggregatesModel.ShoppingList shoppingList)
         {
-            //foreach (var item in shoppingList.ShoppingListItems)
-            //{
-            //    _context.Entry(item).State = EntityState.Deleted;
-            //}
             _context.Entry(shoppingList).State = EntityState.Deleted;
         }
 
