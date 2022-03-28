@@ -28,4 +28,8 @@
     <ProjectReference Include="..\ShoppingList.Infrastructure\ShoppingList.Infrastructure.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Application\IntegrationEvents\EventHandling\ShoppingListCreated\" />
+  </ItemGroup>
+
 </Project>

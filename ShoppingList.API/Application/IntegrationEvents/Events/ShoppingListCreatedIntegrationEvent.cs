@@ -2,9 +2,9 @@
 
 namespace ShoppingList.API.Application.IntegrationEvents.Events
 {
-    public record ShoppingListCreatedEvent : IntegrationEvent
+    public record ShoppingListCreatedIntegrationEvent : IntegrationEvent
     {
-        public ShoppingListCreatedEvent(string shoppingListTitle, List<ListItem> listItems)
+        public ShoppingListCreatedIntegrationEvent(string shoppingListTitle, List<ListItem> listItems)
         {
             ShoppingListTitle = shoppingListTitle;
             ListItems = listItems;

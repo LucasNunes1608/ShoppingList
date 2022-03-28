@@ -1,7 +1,9 @@
-﻿namespace ShoppingList.API.Application.IntegrationEvents
+﻿using EventBus.Events;
+
+namespace ShoppingList.API.Application.IntegrationEvents
 {
     public interface IShoppingListIntegrationService
     {
-        Task PublishThroughEventBusAsync(Guid messageId);
+        Task PublishThroughEventBusAsync(IntegrationEvent @event);
     }
 }

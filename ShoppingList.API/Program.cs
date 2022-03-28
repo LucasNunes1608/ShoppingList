@@ -2,6 +2,7 @@ using EventBus.Abstractions;
 using EventBus.EventBusKafka;
 using MediatR;
 using Microsoft.EntityFrameworkCore;
+using ShoppingList.API.Application.IntegrationEvents;
 using ShoppingList.API.Application.Queries;
 using ShoppingList.API.Producers;
 using ShoppingList.Domain.AggregatesModel;
@@ -31,6 +32,7 @@ builder.Services.AddSingleton<IEventBus, EventBusKafka>(sp =>
 {
     return new EventBusKafka();
 });
+builder.Services.AddTransient<IShoppingListIntegrationService, ShoppingListIntegrationService>();
 
 
 var app = builder.Build();

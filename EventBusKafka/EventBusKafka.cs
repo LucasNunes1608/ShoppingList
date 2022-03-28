@@ -8,7 +8,7 @@ namespace EventBus.EventBusKafka
 {
     public class EventBusKafka : IEventBus
     {
-        const string _topic = "teste";
+        const string _topic = "testingTopic";
         const string _host = "localhost:9092";
         public async void Publish(IntegrationEvent @event)
         {
@@ -18,12 +18,12 @@ namespace EventBus.EventBusKafka
                 ClientId = Dns.GetHostName()
             };
 
-            using (var producer = new ProducerBuilder<string, string>(config).Build())
+            using (var producer = new ProducerBuilder<string, byte[]>(config).Build())
             {
-                var message = new Message<string, string>()
+                var message = new Message<string, byte[]>()
                 {
                     Key = _topic + Guid.NewGuid(),
-                    Value = JsonSerializer.Serialize(@event, @event.GetType()),
+                    Value = JsonSerializer.SerializeToUtf8Bytes(@event, @event.GetType()),
                     Timestamp = Timestamp.Default
                 };
 
